@@ -1,0 +1,10 @@
+version: '2'
+services:
+  ppc32-fmt-pwn:
+    build: challenges/ppc32-simple-fmt
+    ports:
+      - "9001:9000"
+    environment:
+      - PWNFLAG=FLAG_GOES_HERE
+    restart: always
+
