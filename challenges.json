@@ -1,0 +1,12 @@
+[
+	{
+		"name": "ppc-simple-overflow",
+		"internal_description": "Simple stack based buffer overflow for PPC32",
+		"challenge_description": "Exploit the server at ${HOST}:${PORT}. The binary is available at ${BINARY_SOURCE}",
+		"difficulty": "Low",
+		"flag": {
+			"source": "environment",
+			"target": "PWNFLAG"
+		}
+	}
+]
