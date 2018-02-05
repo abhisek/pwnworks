@@ -6,7 +6,7 @@ Tools and scripts for CTF `exploit/pwnable` challenge development.
 
 * Each challenge goes in its own directory in challenges/${challenge}
 * Each challenge must be packaged as a `docker` container and must have a `Dockerfile`
-* Challenges can share `binaries` or any other file for distribution after packaging through /shared (??)
+* Challenges can share `binaries` or any other file for distribution after packaging through /shared (if exists during runtime)
 
 ## Flags
 

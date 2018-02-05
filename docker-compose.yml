@@ -2,9 +2,13 @@ version: '2'
 services:
   ppc32-fmt-pwn:
     build: challenges/ppc32-simple-fmt
+    volumes:
+      - shared-data:/shared
     ports:
       - "9001:9000"
     environment:
       - PWNFLAG=FLAG_GOES_HERE
     restart: always
 
+volumes:
+  shared-data:
