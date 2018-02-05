@@ -15,6 +15,7 @@ WORKDIR /
 RUN rm -rf /work
 
 COPY start.sh /start.sh
+RUN chmod 755 /start.sh
 
 RUN useradd -m bob
 EXPOSE 9000
