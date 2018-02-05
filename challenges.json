@@ -1,8 +1,8 @@
 [
    {
-      "name": "ppc-simple-overflow",
+      "name": "ppc32-simple-fmt",
       "description": {
-         "internal": "Simple stack based buffer overflow for PPC32",
+         "internal": "Simple format string exploitation for PPC32",
          "external": "Exploit the server at ${HOST}:${PORT}. The binary is available at ${BINARY_SOURCE}"
       },
       "difficulty": "Low",
