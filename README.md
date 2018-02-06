@@ -6,7 +6,8 @@ Tools and scripts for CTF `exploit/pwnable` challenge development.
 
 * Each challenge goes in its own directory in challenges/${challenge}
 * Each challenge must be packaged as a `docker` container and must have a `Dockerfile`
-* Challenges can share `binaries` or any other file for distribution after packaging through /shared (if exists during runtime)
+* Challenges can share `binaries` or any other file for distribution after packaging through /shared (if exists during runtime). Check `start.sh` in `ppc32-simple-fmt` challenge.
+* Challenge meta data must go in `challenges.json`
 
 > Challenge developers must ensure that non-root privilege is obtained after exploiting target. Otherise the `server/socat` process will be killed by the attacker.
 

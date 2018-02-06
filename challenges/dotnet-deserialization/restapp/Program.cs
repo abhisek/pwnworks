@@ -114,6 +114,7 @@ namespace restapp
         }
 
         // https://speakerdeck.com/pwntester/attacking-net-serialization
+        // https://cert.360.cn/warning/detail?id=e689288863456481733e01b093c986b6
         public Hashtable DecodeAuthMethod(string data)
         {
             Hashtable table = new Hashtable();
@@ -127,10 +128,14 @@ namespace restapp
             var xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(decodedData);
 
+            //Console.WriteLine("Loaded XML");
+
             foreach(XmlElement xmlItem in xmlDoc.SelectNodes("AuthData/Item"))
             {
                 string key = xmlItem.GetAttribute("key");
                 string typeName = xmlItem.GetAttribute("type");
+
+                //Console.WriteLine("Going to deserialize for key: " + key + " type: " + typeName);
 
                 var xser = new XmlSerializer(Type.GetType(typeName));
                 var reader = new XmlTextReader(new StringReader(xmlItem.InnerXml));
