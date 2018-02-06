@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using Nancy;
@@ -62,6 +63,35 @@ namespace restapp
             {
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(Product));
                 string payload = ((RequestStream) this.Request.Body).AsString();
+                string authData = this.Request.Headers.Authorization;
+
+                Hashtable authInfo = new Hashtable();
+                Boolean isAuthenticated = false;
+
+                try {
+                    authInfo = DecodeAuthMethod(authData);
+                }
+                catch(Exception exception) {
+                    Console.WriteLine("Failed to decode auth data: " + exception.Message);
+                }
+
+                if(authInfo.ContainsKey("basic"))
+                {
+                    Hashtable basicAuth = (Hashtable) authInfo["basic"];
+                    try {
+                        if(basicAuth["token"].Equals("5daba5b0885a65b222216bf46b083538")) 
+                        {
+                            isAuthenticated = true;
+                        }
+                    }
+                    catch(Exception exception) {
+                        Console.WriteLine("Error in authInfo: " + exception.Message);
+                    }
+                }
+
+                if(! isAuthenticated) {
+                    return "<Error>Unauthorized</Error>";
+                }
 
                 using (TextReader reader = new StringReader(payload))
                 {
@@ -81,6 +111,37 @@ namespace restapp
                     }
                 }
             });
+        }
+
+        // https://speakerdeck.com/pwntester/attacking-net-serialization
+        public Hashtable DecodeAuthMethod(string data)
+        {
+            Hashtable table = new Hashtable();
+
+            if(String.IsNullOrEmpty(data))
+                return table;
+
+            byte[] db = Convert.FromBase64String(data);
+            string decodedData = Encoding.UTF8.GetString(db);
+
+            var xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(decodedData);
+
+            foreach(XmlElement xmlItem in xmlDoc.SelectNodes("AuthData/Item"))
+            {
+                string key = xmlItem.GetAttribute("key");
+                string typeName = xmlItem.GetAttribute("type");
+
+                var xser = new XmlSerializer(Type.GetType(typeName));
+                var reader = new XmlTextReader(new StringReader(xmlItem.InnerXml));
+
+                table.Add(key, xser.Deserialize(reader));
+            }
+
+            // For debugging
+            // foreach(string key in table.Keys) { Console.WriteLine(String.Format("{0}: {1}", key, table[key])); }
+            
+            return table;
         }
     }
 

@@ -1,0 +1,11 @@
+*.dll
+*.exe
+*.pdb
+restapp/bin
+restapp/obj
+restapp/.vscode
+
+
+
+
+

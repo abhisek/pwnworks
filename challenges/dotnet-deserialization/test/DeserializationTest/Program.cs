@@ -84,8 +84,8 @@ namespace DeserializationTest
                 if(cmd.Equals("bin")) {
                     Console.WriteLine("Running BinaryFormatter test");
         
-                    Console.WriteLine("Creating file: " + file);
-                    CreateBinaryFormatterFile(file, addresses);
+                    //Console.WriteLine("Creating file: " + file);
+                    //CreateBinaryFormatterFile(file, addresses);
 
                     addresses = ReadBinaryFormattedFile(file);
                     Console.WriteLine("Addr of Jeff: " + addresses["Jeff"].ToString());
