@@ -13,6 +13,7 @@ RUN chmod 755 /start.sh
 # Compile binary and remove source code
 COPY src/fmt.c .
 RUN powerpc-linux-gnu-gcc-4.8 -Wno-format-security -o /pwnable fmt.c -static
+RUN strip /pwnable
 RUN rm -rf fmt.c
 
 RUN useradd -m bob
