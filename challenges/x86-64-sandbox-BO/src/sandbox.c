@@ -11,7 +11,7 @@
 #include <unistd.h>
 #include <assert.h>
 
-#define DEBUG
+//#define DEBUG
 #ifdef DEBUG
 #define dprintf      printf
 #else
