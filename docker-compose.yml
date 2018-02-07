@@ -20,7 +20,7 @@ services:
       - CHALLENGE_NAME=lvl2-box
       - PWNFLAG=FLAG_GOES_HERE
     restart: always
-  x86-64-sandboxie:
+  dotnet-serial-pwn:
     build: challenges/dotnet-deserialization
     volumes:
       - shared-data:/shared
