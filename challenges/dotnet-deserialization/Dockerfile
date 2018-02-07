@@ -13,7 +13,7 @@ RUN apt-get install -y build-essential redir curl dotnet-sdk-2.1.4
 
 WORKDIR /app/src/restapp
 COPY restapp/. .
-RUN dotnet build --configuration=Release --output=/app/bin
+RUN dotnet publish --configuration Release --output /app/bin
 
 WORKDIR /app
 RUN rm -rf /app/src
