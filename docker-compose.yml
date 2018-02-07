@@ -30,6 +30,14 @@ services:
       - CHALLENGE_NAME=lvl3-net
       - PWNFLAG=FLAG_GOES_HERE
     restart: always
+  nginx-static-server:
+    build: nginx-static-server
+    volumes:
+      - shared-data:/usr/share/nginx/html
+    ports:
+      - "8000:80"
+    restart: always
+
 
 
 

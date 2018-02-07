@@ -8,11 +8,13 @@ Vagrant.configure("2") do |config|
   config.vm.provision "file", source: "checksec.sh", destination: "/usr/bin/checksec.sh"
   config.vm.provision "shell", inline: <<-SHELL
      apt-get update
-     apt-get install -y build-essential vim gdb git docker.io docker-compose ruby
-	  chmod 755 /usr/bin/checksec.sh
-	  usermod -a -G docker ubuntu
-	  echo c2V0IHN5bnRheD1vbgpzZXQgbnUKc2V0IHRzPTMKc2V0IGV4cGFuZHRhYgpzZXQgYXV0b2luZGVudAoKCgoK | base64 -d > /home/ubuntu/.vimrc
-	  chown ubuntu:ubuntu /home/ubuntu/.vimrc
+     apt-get install -y build-essential vim gdb git docker.io docker-compose ruby python
+     
+     usermod -a -G docker ubuntu
+     echo c2V0IHN5bnRheD1vbgpzZXQgbnUKc2V0IHRzPTMKc2V0IGV4cGFuZHRhYgpzZXQgYXV0b2luZGVudAoKCgoK | base64 -d > /home/ubuntu/.vimrc
+     chown ubuntu:ubuntu /home/ubuntu/.vimrc
+
+     chmod 755 /usr/bin/checksec.sh
   SHELL
 
 end
