@@ -13,6 +13,11 @@ The vulnerability exists due to an attacker's ability to load and run `deseriali
 Good example available at:
 https://cert.360.cn/warning/detail?id=e689288863456481733e01b093c986b6
 
+For attacking `XML Deserializer`, there are certain constraints suchs as:
+
+* `Type name` should be attacker controlled as `XML Deserializer` seem to validate explicit type (Strict type control)
+* Only `public` classes can be targeted during deserialization
+
 ## Usage
 
 ```bash

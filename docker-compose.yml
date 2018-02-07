@@ -10,6 +10,17 @@ services:
       - CHALLENGE_NAME=lvl1-uhoh
       - PWNFLAG=FLAG_GOES_HERE
     restart: always
+  x86-64-sandboxie:
+    build: challenges/x86-64-sandbox
+    volumes:
+      - shared-data:/shared
+    ports:
+      - "9002:9000"
+    environment:
+      - CHALLENGE_NAME=lvl2-box
+      - PWNFLAG=FLAG_GOES_HERE
+    restart: always
+
 
 volumes:
   shared-data:

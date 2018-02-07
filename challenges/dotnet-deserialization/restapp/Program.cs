@@ -9,6 +9,8 @@ using Nancy.Hosting.Self;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading;
 
 namespace restapp
 {
@@ -35,6 +37,8 @@ namespace restapp
                 XmlRootAttribute root = new XmlRootAttribute("Products");
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(Product[]), root);
 
+                Console.WriteLine("Handling GET on /products");
+
                 using(StringWriter textWriter = new StringWriter())
                 {
                     xmlSerializer.Serialize(textWriter, products.ToArray());
@@ -45,6 +49,8 @@ namespace restapp
             Get("/{name}", parameters =>
             {
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(Product));
+
+                Console.WriteLine("Handling GET on /products/{name}");
                 
                 for(int i = 0; i < products.Count; i++)
                 {
@@ -67,6 +73,8 @@ namespace restapp
 
                 Hashtable authInfo = new Hashtable();
                 Boolean isAuthenticated = false;
+
+                Console.WriteLine("Handling POST on /products");
 
                 try {
                     authInfo = DecodeAuthMethod(authData);
@@ -122,13 +130,15 @@ namespace restapp
             if(String.IsNullOrEmpty(data))
                 return table;
 
+            Console.WriteLine("Decoding AuthData");
+
             byte[] db = Convert.FromBase64String(data);
             string decodedData = Encoding.UTF8.GetString(db);
 
             var xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(decodedData);
 
-            //Console.WriteLine("Loaded XML");
+            Console.WriteLine("Loaded AuthData XML");
 
             foreach(XmlElement xmlItem in xmlDoc.SelectNodes("AuthData/Item"))
             {
@@ -137,10 +147,21 @@ namespace restapp
 
                 //Console.WriteLine("Going to deserialize for key: " + key + " type: " + typeName);
 
-                var xser = new XmlSerializer(Type.GetType(typeName));
-                var reader = new XmlTextReader(new StringReader(xmlItem.InnerXml));
+                if(String.IsNullOrEmpty(typeName))
+                    continue;
 
-                table.Add(key, xser.Deserialize(reader));
+                if(typeName.Equals("BinaryType")) {
+                    var xbin = new BinaryFormatter();
+                    var stream = new MemoryStream(Convert.FromBase64String(xmlItem.InnerXml));
+
+                    table.Add(key, xbin.Deserialize(stream));
+                }
+                else {
+                    var xser = new XmlSerializer(Type.GetType(typeName));
+                    var reader = new XmlTextReader(new StringReader(xmlItem.InnerXml));
+
+                    table.Add(key, xser.Deserialize(reader));
+                }
             }
 
             // For debugging
@@ -162,17 +183,32 @@ namespace restapp
 
     class Program
     {
+        private static Boolean isRunning;
+
         static void Main(string[] args)
         {
             var urlHost = "127.0.0.1";
             var urlPort = Environment.GetEnvironmentVariable("PORT") ?? "8000";
             var url = "http://" + urlHost + ":" + urlPort;
 
+            Console.CancelKeyPress += delegate(object sender, ConsoleCancelEventArgs e) {
+                e.Cancel = true;
+                Program.isRunning = false;
+            };
+
             using (var host = new NancyHost(new Uri(url)))
             {
                 host.Start();
                 Console.WriteLine("Running on " + url);
-                Console.ReadLine();
+
+                Program.isRunning = true;                
+                while(Program.isRunning)
+                {
+                    Thread.Sleep(1000);
+                }
+
+                host.Stop();
+                Console.WriteLine("Terminating server");
             }
         }
     }
