@@ -11,7 +11,7 @@ services:
       - PWNFLAG=FLAG_GOES_HERE
     restart: always
   x86-64-sandboxie:
-    build: challenges/x86-64-sandbox
+    build: challenges/x86-64-sandbox-BO
     volumes:
       - shared-data:/shared
     ports:
