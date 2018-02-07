@@ -20,6 +20,18 @@ services:
       - CHALLENGE_NAME=lvl2-box
       - PWNFLAG=FLAG_GOES_HERE
     restart: always
+  x86-64-sandboxie:
+    build: challenges/dotnet-deserialization
+    volumes:
+      - shared-data:/shared
+    ports:
+      - "9003:9000"
+    environment:
+      - CHALLENGE_NAME=lvl3-net
+      - PWNFLAG=FLAG_GOES_HERE
+    restart: always
+
+
 
 
 volumes:
