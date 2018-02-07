@@ -7,9 +7,7 @@ RUN mkdir /shared
 WORKDIR /app
 
 # Wrapper scripts
-COPY server.sh /server.sh
 COPY start.sh /start.sh
-RUN chmod 755 /server.sh
 RUN chmod 755 /start.sh
 
 # Compile binary and remove source code

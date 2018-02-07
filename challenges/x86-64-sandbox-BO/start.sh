@@ -10,6 +10,7 @@ chown root:root /flag.txt
 chmod 644 /flag.txt
 
 while [ true ]; do
-   su - bob -c "socat -dd TCP4-LISTEN:9000,fork,reuseaddr EXEC:/pwnable,pty,echo=0,raw,iexten=0"
+   # Need the environment clean
+   su -l bob -c "socat -dd TCP4-LISTEN:9000,fork,reuseaddr EXEC:/pwnable,pty,echo=0,raw,iexten=0"
 done;
 
