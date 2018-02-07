@@ -165,7 +165,7 @@ namespace restapp
         static void Main(string[] args)
         {
             var urlHost = "127.0.0.1";
-            var urlPort = Environment.GetEnvironmentVariable("PORT") ?? "9000";
+            var urlPort = Environment.GetEnvironmentVariable("PORT") ?? "8000";
             var url = "http://" + urlHost + ":" + urlPort;
 
             using (var host = new NancyHost(new Uri(url)))

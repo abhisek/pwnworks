@@ -9,7 +9,8 @@ RUN apt-get install -y build-essential redir curl dotnet-sdk-2.1.4
 
 WORKDIR /app/src
 COPY restapp/ .
-RUN dotnet build --configuration Release
+RUN dotnet build --configuration Release --output /app
+RUN rm -rf /app/src
 
 COPY start.sh /start.sh
 RUN chmod 755 /start.sh
