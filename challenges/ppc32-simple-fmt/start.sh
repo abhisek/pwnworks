@@ -7,6 +7,6 @@ fi;
 
 while [ true ]; do
    # If we run with su, it is resulting in zombie process
-   socat -dd TCP4-LISTEN:9000,fork,reuseaddr EXEC:/pwnable,pty,setuid=bob,echo=0,raw,iexten=0
+   socat -dd TCP4-LISTEN:9000,fork,reuseaddr EXEC:"qemu-ppc /pwnable",pty,setuid=bob,echo=0,raw,iexten=0
    sleep 1
 done;
