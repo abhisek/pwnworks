@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
-RUN apt-get update && apt-get install -y socat
+RUN apt-get update && apt-get install -y build-essential socat
 
-WORKDIR /app/src
+WORKDIR /app
 COPY src /app/src/.
 COPY Makefile .
 RUN make

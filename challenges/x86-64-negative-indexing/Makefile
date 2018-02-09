@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=
-LDFLAGS=
+LDFLAGS=-s
 
 all: cbin
 cbin: src/ngix.o
