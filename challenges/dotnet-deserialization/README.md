@@ -29,7 +29,7 @@ $ docker run --rm --name dotnet-serial-pwn -p 9000:9000 dotnet-serial-pwn
 
 * https://speakerdeck.com/pwntester/attacking-net-serialization
 * https://www.blackhat.com/docs/us-17/thursday/us-17-Munoz-Friday-The-13th-Json-Attacks.pdf
-* https://media.blackhat.com/bh-us-12/Briefings/Forshaw/BH\_US\_12\_Forshaw\_Are\_You\_My\_Type\_Slides.pdf
+* https://media.blackhat.com/bh-us-12/Briefings/Forshaw/BH_US_12_Forshaw_Are_You_My_Type_Slides.pdf
 
 
 
