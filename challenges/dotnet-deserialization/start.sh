@@ -1,8 +1,10 @@
 #!/bin/bash
 
 if [ -d "/shared" ] && [ -v CHALLENGE_NAME ]; then
-   cp /app/bin/restapp.dll /shared/$CHALLENGE_NAME.bin
-   md5sum --tag /app/bin/restapp.dll > /shared/$CHALLENGE_NAME.bin.md5
+   #cp /app/bin/restapp.dll /shared/$CHALLENGE_NAME.bin
+   #md5sum --tag /app/bin/restapp.dll > /shared/$CHALLENGE_NAME.bin.md5
+   zip -r /app/bin /shared/$CHALLENGE_NAME.zip
+   md5sum --tag /shared/$CHALLENGE_NAME.zip > /shared/$CHALLENGE_NAME.zip.md5
 fi;
 
 cd /app
