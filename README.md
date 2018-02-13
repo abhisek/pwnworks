@@ -26,6 +26,8 @@ The flag for each challenge will be available from process `environment variable
 * PFLAG
 * FLAG-FOR-PWNS
 
+> Some challenges may still require flag to be in a file.
+
 ## Development Environment
 
 Create the virtual machine with `Vagrant`
