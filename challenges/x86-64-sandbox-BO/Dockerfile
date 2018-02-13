@@ -2,8 +2,9 @@ FROM ubuntu:16.04
 RUN apt-get update
 RUN apt-get install -y build-essential socat libseccomp-dev
 
-WORKDIR /app/src
-COPY src/. .
+WORKDIR /app
+COPY src/. ./src/.
+COPY Makefile .
 RUN make
 RUN cp sandbox /pwnable
 
