@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <inttypes.h>
 
+//#define DEBUG
 #define STDIN  0
 #define STDOUT 1
 
@@ -39,6 +41,14 @@ void do_get()
 {
    char *key = (char*) sbuf1;
    char *val = getenv(to_env_name(sbuf1));
+
+#ifdef DEBUG
+   int stack_var;
+   char *p = getenv("PWNFLAG");
+
+   printf("Stack var: 0x%016" PRIxPTR " Env: 0x%016" PRIxPTR "\n", 
+      (uintptr_t) &stack_var, (uintptr_t) p);
+#endif
 
    if(val == NULL)
       val = "NOT-FOUND";
